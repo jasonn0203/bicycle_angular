@@ -7,36 +7,39 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ProductService {
+  api: string = 'https://bicycle-angular.onrender.com';
+  // 'http://localhost:3000/product'
+
   cartData = new EventEmitter<Product[] | []>();
   orderList: any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   addProduct(data: Product) {
-    return this.http.post('http://localhost:3000/product', data);
+    return this.http.post(`${this.api}/product`, data);
   }
   productList() {
-    return this.http.get<Product[]>('http://localhost:3000/product');
+    return this.http.get<Product[]>(`${this.api}/product`);
   }
 
   deleteProduct(id: number) {
-    return this.http.delete(`http://localhost:3000/product/${id}`);
+    return this.http.delete(`${this.api}/product/${id}`);
   }
 
   getProduct(id: string) {
-    return this.http.get<Product>(`http://localhost:3000/product/${id}`);
+    return this.http.get<Product>(`${this.api}/product/${id}`);
   }
 
   updateProduct(product: Product) {
     return this.http.put<Product>(
-      `http://localhost:3000/product/${product.id}`, product);
+      `${this.api}//product/${product.id}`,
+      product
+    );
   }
   trendyProducts() {
-    return this.http.get<Product[]>('http://localhost:3000/product');
+    return this.http.get<Product[]>(`${this.api}/product`);
   }
 
   searchProduct(query: string) {
-    return this.http.get<Product[]>(
-      `http://localhost:3000/product?q=${query}`
-    );
+    return this.http.get<Product[]>(`${this.api}/product?q=${query}`);
   }
 
   localAddToCart(data: Product) {
@@ -53,10 +56,7 @@ export class ProductService {
     }
   }
   updateCartItem(cart: CartItem) {
-    return this.http.put<CartItem>(
-      `http://localhost:3000/cart/${cart.id}`,
-      cart
-    );
+    return this.http.put<CartItem>(`${this.api}/cart/${cart.id}`, cart);
   }
   removeItemFromCart(productId: number) {
     let cartData = localStorage.getItem('localCart');
@@ -69,11 +69,11 @@ export class ProductService {
   }
 
   addToCart(cartData: CartItem) {
-    return this.http.post('http://localhost:3000/cart', cartData);
+    return this.http.post(`${this.api}/cart`, cartData);
   }
   getCartList(userId: number) {
     return this.http
-      .get<Product[]>('http://localhost:3000/cart?userId=' + userId, {
+      .get<Product[]>(`${this.api}/cart?userId=` + userId, {
         observe: 'response',
       })
       .subscribe((result) => {
@@ -83,19 +83,19 @@ export class ProductService {
       });
   }
   removeToCart(cartId: number) {
-    return this.http.delete('http://localhost:3000/cart/' + cartId);
+    return this.http.delete(`${this.api}/cart/` + cartId);
   }
   currentCart() {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<CartItem[]>('http://localhost:3000/cart?userId=' + userData.id);
+    return this.http.get<CartItem[]>(`${this.api}/cart?userId=` + userData.id);
   }
-
 
   deleteCartItems(cartId: number) {
-    return this.http.delete('http://localhost:3000/cart/' + cartId).subscribe((result) => {
-      this.cartData.emit([]);
-    })
+    return this.http
+      .delete(`${this.api}/cart/` + cartId)
+      .subscribe((result) => {
+        this.cartData.emit([]);
+      });
   }
-
 }

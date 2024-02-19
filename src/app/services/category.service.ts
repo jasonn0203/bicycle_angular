@@ -7,26 +7,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient) { }
+  api: string = 'https://bicycle-angular.onrender.com';
+
+  constructor(private http: HttpClient) {}
 
   getCategory() {
-    return this.http.get<Category[]>('http://localhost:3000/category');
+    return this.http.get<Category[]>(`${this.api}/category`);
   }
 
   getCategoryById(id: number) {
-    return this.http.get<Category>('http://localhost:3000/category/' + id);
+    return this.http.get<Category>(`${this.api}/category/` + id);
   }
 
   addCategory(data: Category) {
-    return this.http.post('http://localhost:3000/category', data);
+    return this.http.post(`${this.api}/category/`, data);
   }
 
   updateCategory(category: Category) {
-    return this.http.put<Category>('http://localhost:3000/category/' + category.id, category);
+    return this.http.put<Category>(
+      `${this.api}/category/` + category.id,
+      category
+    );
   }
 
   deleteCategory(id: number) {
-    return this.http.delete('http://localhost:3000/category/' + id);
+    return this.http.delete(`${this.api}/category/` + id);
   }
-
 }
