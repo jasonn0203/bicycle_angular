@@ -5,19 +5,21 @@ import { ProductService } from '../services/product.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-
-  searchResult:undefined|Product[]
-  constructor(private activeRoute: ActivatedRoute, private product:ProductService) { }
+  searchResult: undefined | Product[];
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private product: ProductService
+  ) {}
 
   ngOnInit(): void {
     let query = this.activeRoute.snapshot.paramMap.get('query');
     console.warn(query);
-    query && this.product.searchProduct(query).subscribe((result)=>{
-      this.searchResult=result;
-      
-    })
+    query &&
+      this.product.searchProduct(query).subscribe((result) => {
+        this.searchResult = result;
+      });
   }
 }

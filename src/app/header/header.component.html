@@ -77,7 +77,7 @@
   }
 </style>
 <header style="height: 70px; background-color: azure">
-  <nav class="text-center">
+  <nav *ngIf="menuType !== 'seller'" class="text-center">
     <a routerLink=""><img src="assets/images/logo.png" /></a>
   </nav>
   <div *ngIf="menuType !== 'seller'" class="nav-search w-25 row">
