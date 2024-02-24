@@ -113,8 +113,8 @@
                 <h5>Mô tả: {{ productData.description }}</h5>
 
                 <div class="text-center" *ngIf="IsLogin">
-                    <div class="row mb-2">
-                        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                    <div class="row mb-2 ">
+                        <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-add-less" (click)="handleQuantity('min')">-</div>
                             <input style="
                   width: 100% !important;
@@ -124,7 +124,7 @@
                 " type="number" class="form-control w-100 text-center" [value]="productQuantity" disabled />
                             <div class="btn-add-less" (click)="handleQuantity('plus')">+</div>
                         </div>
-                        <div class="col-lg-6 text-center">
+                        <div class="my-4 text-center fs-3">
                             Thành tiền:
                             {{ productData.price * productQuantity | number : "1.0-0" }}₫
                         </div>
@@ -134,12 +134,12 @@
                         <span class="fs-5"> Xóa khỏi giỏ </span>
                     </button>
                     <button style="background-color: #274d5a; color: #f7d662" *ngIf="!removeCart"
-                        class="btn w-50 mt-1 btn-add" (click)="addToCart()">
+                        class="btn w-100 mt-1 btn-add" (click)="addToCart()">
                         <span class="fs-5"> Thêm vào giỏ </span>
                     </button>
                 </div>
                 <div class="text-center mt-1" *ngIf="!IsLogin">
-                    <button style="background-color: #274d5a; color: #f7d662" class="btn btn-add w-50"
+                    <button style="background-color: #274d5a; color: #f7d662" class="btn btn-add w-100"
                         (click)="goToLogin()">
                         <span class="fs-5"> Đăng nhập để mua hàng</span>
                     </button>
